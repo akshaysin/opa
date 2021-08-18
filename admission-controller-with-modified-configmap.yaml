@@ -140,10 +140,6 @@ data:
         # Only apply mutations to objects in create/update operations (not
         # delete/connect operations.)
         is_create_or_update
-
-        # If the resource has the "test-mutation" annotation key, the patch will be
-        # generated and applied to the resource.
-        input.request.object.metadata.annotations["test-mutation"]
     }
 
     is_create_or_update { is_create }
