@@ -128,11 +128,11 @@ data:
 
     patch = [{
       "op": "add",
-      "path": "/annotations/managed-by",
+      "path": "/metadata/annotations/managed-by",
       "value": "ssauth",
     }, {
       "op": "add",
-      "path": "/annotations/contact",
+      "path": "/metadata/annotations/contact",
       "value": "contact@auth.com",
     }]
 
