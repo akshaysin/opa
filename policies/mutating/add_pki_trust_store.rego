@@ -12,8 +12,16 @@ package system
     patch = [{
       "op": "add",
       "path": "/spec/template/spec/InitContainers",
-      "value": pki_container,
-    }, {
+      "value": pki_container_init,
+    },{
+      "op": "add",
+      "path": "/spec/template/spec/Containers",
+      "value": pki_container_sc,
+    },{
+        "op": "add",
+        "path": "/metadata/annotations/pki-injected",
+        "value": "true"
+    },{
       "op": "add",
       "path": "/spec/template/spec/volumes",
       "value": [{
@@ -22,7 +30,7 @@ package system
             "medium": "Memory"
           }
       }]
-    }, {
+    },{
       "op": "add",
       "path": "/spec/template/spec/containers/0/volumeMounts",
       "value": [{
@@ -30,8 +38,26 @@ package system
            "mountPath": "/etc/ssl/certs"
             }]
     }]
-    pki_container = {
+    pki_container_init = {
     "name": "cb-certs-init",
+    "image": "cloudbees/docker-certificates",
+    "command": [
+      "/bin/sh"
+    ],
+    "args": [
+      "-c",
+      "cp -r /etc/ssl/certs/* /tmp/certs"
+    ],
+    "volumeMounts": [
+      {
+        "name": "certs",
+        "mountPath": "/tmp/certs"
+      }
+    ],
+    "dnsPolicy": "Default"
+    }
+    pki_container_sc = {
+    "name": "cb-certs-sc",
     "image": "cloudbees/docker-certificates",
     "command": [
       "/bin/sh"
