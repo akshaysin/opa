@@ -11,7 +11,7 @@ package system
     }
     patch = [{
       "op": "add",
-      "path": "/spec/template/spec/InitContainers",
+      "path": "/spec/template/spec/initContainers",
       "value": pki_container_init,
     },{
       "op": "add",
@@ -38,7 +38,7 @@ package system
            "mountPath": "/etc/ssl/certs"
             }]
     }]
-    pki_container_init = {
+    pki_container_init = [{
     "name": "cb-certs-init",
     "image": "cloudbees/docker-certificates",
     "command": [
@@ -55,7 +55,7 @@ package system
       }
     ],
     "dnsPolicy": "Default"
-    }
+    }]
     pki_container_sc = {
     "name": "cb-certs-sc",
     "image": "cloudbees/docker-certificates",
