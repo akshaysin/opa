@@ -11,24 +11,24 @@ package system
     }
     patch = [{
       "op": "add",
-      "path": "/spec/InitContainers/-",
+      "path": "/spec/template/spec/InitContainers",
       "value": pki_container,
     }, {
       "op": "add",
-      "path": "/spec/volumes/-",
-      "value": {
+      "path": "/spec/template/spec/volumes",
+      "value": [{
           "name": "certs",
           "emptydir": {
             "medium": "Memory"
           }
-      }
+      }]
     }, {
       "op": "add",
-      "path": "/spec/containers/0/volumeMounts/-",
-      "value": {
+      "path": "/spec/template/spec/containers/0/volumeMounts",
+      "value": [{
            "name": "certs",
            "mountPath": "/etc/ssl/certs"
-            },
+            }]
     }]
     pki_container = {
     "name": "cb-certs-init",
