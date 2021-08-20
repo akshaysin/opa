@@ -15,14 +15,6 @@ package system
       "value": pki_container_init,
     },{
       "op": "add",
-      "path": "/spec/template/spec/Containers",
-      "value": pki_container_sc,
-    },{
-        "op": "add",
-        "path": "/metadata/annotations/pki-injected",
-        "value": "true"
-    },{
-      "op": "add",
       "path": "/spec/template/spec/volumes",
       "value": [{
           "name": "certs",
@@ -37,6 +29,10 @@ package system
            "name": "certs",
            "mountPath": "/etc/ssl/certs"
             }]
+    },{
+        "op": "add",
+        "path": "/metadata/annotations/pki-injected",
+        "value": "true"
     }]
     pki_container_init = [{
     "name": "cb-certs-init",
@@ -56,24 +52,7 @@ package system
     ],
     "dnsPolicy": "Default"
     }]
-    pki_container_sc = {
-    "name": "cb-certs-sc",
-    "image": "cloudbees/docker-certificates",
-    "command": [
-      "/bin/sh"
-    ],
-    "args": [
-      "-c",
-      "cp -r /etc/ssl/certs/* /tmp/certs"
-    ],
-    "volumeMounts": [
-      {
-        "name": "certs",
-        "mountPath": "/tmp/certs"
-      }
-    ],
-    "dnsPolicy": "Default"
-    } {
+    {
     # Only apply mutations to objects in create/update operations (not
     # delete/connect operations.)
     is_create_or_update
@@ -81,9 +60,9 @@ package system
     # If the resource has the "test-mutation" annotation key, the patch will be
     # generated and applied to the resource.
     input.request.object.metadata.annotations["pki"]
-}
+    }
 
-is_create_or_update { is_create }
-is_create_or_update { is_update }
-is_create { input.request.operation == "CREATE" }
-is_update { input.request.operation == "UPDATE" }
+    is_create_or_update { is_create }
+    is_create_or_update { is_update }
+    is_create { input.request.operation == "CREATE" }
+    is_update { input.request.operation == "UPDATE" }
