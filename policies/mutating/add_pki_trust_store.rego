@@ -60,7 +60,7 @@ package system
     # If the resource has the "test-mutation" annotation key, the patch will be
     # generated and applied to the resource.
     input.request.object.metadata.annotations["pki"]
-    input.request.object.metadata.annotations["pki-injected"] != "true"
+    not input.request.object.metadata.annotations["pki-injected"]
     }
 
     is_create_or_update { is_create }
