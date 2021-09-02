@@ -27,7 +27,7 @@ package system
       "path": "/spec/template/spec/containers/0/volumeMounts",
       "value": [{
            "name": "certs",
-           "mountPath": "/etc/ssl/certs"
+           "mountPath": "/etc/ssl/certs/custom"
             }]
     },{
         "op": "add",
